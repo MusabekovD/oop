@@ -6,15 +6,12 @@ use core\base\settings\Settings;
 use core\base\settings\ShopSettings;
 use Exception;
 
-class RouteController
+class RouteController extends BaseController
 {
     static private $_instance;
 
     protected $routes;
-    protected $controller;
-    protected $InputMethod;
-    protected $OutputMethod;
-    protected $parameters;
+
 
     private function __clone() {}
 
@@ -41,12 +38,12 @@ class RouteController
             $this->routes = Settings::get("routes");
             if (!$this->routes) throw new \Exception("Сайт находиться на техническом обслуживании");
 
-            if (strpos($address_str, $this->routes["admin"]["alias"]) === strlen(PATH)) {
-                // админка
-                
-                $url = explode("/", substr($address_str, strlen(PATH . $this->routes["admin"]["alias"] + 1)));
+            $url = explode("/", substr($address_str, strlen(PATH)));
 
+            if ($url[0] && $url[0] === $this->routes["admin"]["alias"]) {
+                // админка
                 if ($url[0] && is_dir($_SERVER["DOCUMENT_ROOT"] . PATH . $this->routes["plugins"]["path"])) {
+                    array_shift($url);
 
                     $plugin = array_shift($url);
                     $pluginSettings = $this->routes["settings"]["path"] . ucfirst($plugin . "Settings");
@@ -67,7 +64,6 @@ class RouteController
                     $route = "admin";
                 }
             } else {
-                $url = explode("/", substr($address_str, strlen(PATH)));
                 $hrUrl = $this->routes["user"]["hrUrl"];
 
                 $this->controller = $this->routes["user"]["path"];
