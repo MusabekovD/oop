@@ -1,4 +1,7 @@
 <?php
+
+use core\base\exception\RouteException;
+
 defined("VG_ACCESS") or die("ACCESS DENIED");
 
 const TEMPLATE = "templates/default/";
@@ -21,7 +24,6 @@ const USER_CSS_JS = [
     "scripts" => []
 ];
 
-use core\base\exception\RouteException;
 
 function autoloadMainClasses($class_name)
 {

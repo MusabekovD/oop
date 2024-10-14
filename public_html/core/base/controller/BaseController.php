@@ -28,31 +28,38 @@ abstract class BaseController
         } catch (\ReflectionException $e) {
             throw new RouteException($e->getMessage());
         }
+    }
 
-        public funciton request($args){
-            $this->parameters = $args["parameters"];
+    public function request($args)
+    {
 
-            $inputData = $args["inputData"];
-            $outputData = $args["outputData"];
+        $this->parameters = $args["parameters"];
 
-            $this->inputData();
+        $inputData = $args["InputMethod"];
+        $outputData = $args["OutputMethod"];
 
-            $this->page = $this->outputData();
+        $this->$inputData();
 
-            if($this->errors){
-                $this->writelog();
-            }
-            $this->getPage();
+        $this->page = $this->$outputData();
+
+        if ($this->errors) {
+            $this->writeLog();
         }
-        protected function render($path = "", $parameters = []){
-                extract($parameters);
-                if(!path){
-                    $path = TEMPLATE . explode("controller", strtolower( (new \ReflectionClass($this))->getShortName()))[0];
-                }
-        }
-        protected function getPage(){
-            exit($this->page);
-        }
+        $this->getPage();
+    }
+    protected function render($path = "", $parameters = [])
+    {
+        extract($parameters);
+        if (!$path) {
+            $path = TEMPLATE . explode("controller", strtolower((new \ReflectionClass($this))->getShortName()))[0];
 
+            ob_start();
+            if (! @include_once $path . '.php') throw new RouteException("Отсуствует шаблон - " . $path);
+            return ob_get_clean();
+        }
+    }
+    protected function getPage()
+    {
+        exit($this->page);
     }
 }
