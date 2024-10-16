@@ -7,11 +7,11 @@ use core\base\settings\Settings;
 class ShopSettings
 {
     static private $__instance;
-    private $baseSettings;
+     private $baseSettings;
 
     private $templateArr = [
-        "text" => ["name", "phone", "address", "price", "short"],
-        "textarea" => ["content", "keywords", "goods_content"]
+        "text" => [ "price", "short"],
+        "textarea" => ["goods_content"]
     ];
 
 
@@ -25,21 +25,23 @@ class ShopSettings
         if (self::$__instance instanceof self) {
             return self::$__instance;
         }
-        self::$__instance = new self;
-        self::$baseSettings = Settings::instance();
+        self::$__instance = new self;  
+
+        self::$__instance->baseSettings = Settings::instance();
+        exit();
         $baseProperties = self::$__instance->baseSettings->glueProperties(get_class());
-        self::$__instance->setProperty($baseProperties);
+        // self::$__instance->setProperty($baseProperties);
         return self::$__instance;
     }
 
-    protected function  setProperty($properties)
+    /* protected function  setProperty($properties)
     {
         if ($properties) {
             foreach ($properties as $name => $property) {
                 $this->$name = $property;
             }
         }
-    }
+    } */
     private function __construct() {}
 
     private function __clone() {}

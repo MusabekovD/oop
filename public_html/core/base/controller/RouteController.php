@@ -6,7 +6,7 @@ use core\base\settings\Settings;
 use core\base\settings\ShopSettings;
 use Exception;
 
-class RouteController extends BaseController
+class RouteController 
 {
     static private $_instance;
 
@@ -25,7 +25,9 @@ class RouteController extends BaseController
 
     private function __construct()
     {
-
+        $s1 = ShopSettings::get('property');
+        exit();
+/* 
         $address_str = $_SERVER["REQUEST_URI"];
 
         if (strrpos($address_str, "/") === strlen($address_str) - 1 && strrpos($address_str, "/") !== 0) {
@@ -99,10 +101,10 @@ class RouteController extends BaseController
             } catch (\Exception $e) {
                 exit($e->getMessage());
             }
-        }
+        } */
     }
 
-    private function createRoute($var, $arr)
+    /* private function createRoute($var, $arr)
     {
         $route = [];
         if (!empty($arr[0])) {
@@ -119,5 +121,5 @@ class RouteController extends BaseController
         $this->InputMethod = $route[1] ? $route[1] : $this->routes["default"]["InputMethod"];
         $this->OutputMethod = $route[1] ? $route[1] : $this->routes["default"]["OutputMethod"];
         return;
-    }
+    } */
 }

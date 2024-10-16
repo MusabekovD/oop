@@ -27,8 +27,8 @@ class Settings
         ],
         "default"  => [
             "controller" => "IndexController",
-            "InputMethod" => "InputData",
-            "OutputData" => "OutputData"
+            "inputMethod" => "inputData",
+            "outputData" => "outputData"
         ]
 
     ];
@@ -62,6 +62,9 @@ class Settings
 
         foreach ($this as $name => $item) {
             $property  = $class::get($name);
+            $baseProperties[$name] = $property;
+            exit();
+            
             if (is_array($property) && is_array($item)) {
                 $baseProperties[$name] = $this->arrayMergeRecursive($this->$name, $property);
                 continue;
