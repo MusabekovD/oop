@@ -48,8 +48,7 @@ class RouteController
 
             $trimmed_address = substr($address_str, strlen(PATH)); 
             $url = explode("/", trim($trimmed_address, "/")); // Use trim to avoid extra slashes
-            var_dump($url);
-
+          
             if ($url[0] && $url[0] === $this->routes["admin"]["alias"]) {
                 // админка
                 if ($url[0] && is_dir($_SERVER["DOCUMENT_ROOT"] . PATH . $this->routes["plugins"]["path"])) {
@@ -125,8 +124,20 @@ class RouteController
         } else {
             $this->controller .= $this->routes["default"]["controller"];
         }
-        $this->InputMethod = $route[1] ? $route[1] : $this->routes["default"]["InputMethod"];
-        $this->OutputMethod = $route[1] ? $route[1] : $this->routes["default"]["OutputMethod"];
+        // $this->InputMethod = $route[1] ? $route[1] : $this->routes["default"]["InputMethod"];
+        if (!empty($route[1])) {
+            $this->InputMethod = $route[1];
+        } else {
+            $this->InputMethod = $this->routes["default"]["InputMethod"];
+        }
+        
+        // $this->OutputMethod = $route[1] ? $route[1] : $this->routes["default"]["OutputMethod"];
+        if (!empty($route[1])) {
+            $this->OutputMethod = $route[1];
+        } else {
+            $this->OutputMethod = $this->routes["default"]["OutputMethod"];
+        }
+        
         return;
     } 
 }
