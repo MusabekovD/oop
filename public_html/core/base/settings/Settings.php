@@ -24,7 +24,9 @@ class Settings
         "user" => [
             "path" => "core/user/controllers/",
             "hrUrl" => true,
-            "routes" => [],
+            "routes" => [
+                "catalog"=>"site"
+            ],
         ],
         "default"  => [
             "controller" => "IndexController",
@@ -60,17 +62,16 @@ class Settings
     public function glueProperties($class)
     {
         $baseProperties = [];
-        
-     foreach ($this as $name => $item) {
+
+        foreach ($this as $name => $item) {
             $property  = $class::get($name);
             $baseProperties[$name] = $property;
-         /*   if (is_array($property) && is_array($item)) {
+            if (is_array($property) && is_array($item)) {
                 $baseProperties[$name] = $this->arrayMergeRecursive($this->$name, $property);
                 continue;
             }
-            if (!$property) $baseProperties[$name] = $this->$name; */
-        } 
- 
+            if (!$property) $baseProperties[$name] = $this->$name;
+        }
         return $baseProperties;
     }
 
