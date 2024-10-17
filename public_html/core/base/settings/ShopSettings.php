@@ -14,7 +14,6 @@ class ShopSettings
         "textarea" => ["goods_content"]
     ];
 
-
     static public function get($property)
     {
         return self::instance()->$property;
@@ -25,23 +24,12 @@ class ShopSettings
         if (self::$__instance instanceof self) {
             return self::$__instance;
         }
-        self::$__instance = new self;  
-
-        self::$__instance->baseSettings = Settings::instance();
-        exit();
-        $baseProperties = self::$__instance->baseSettings->glueProperties(get_class());
-        // self::$__instance->setProperty($baseProperties);
-        return self::$__instance;
+       
+         self::$__instance = new self;
+         self::$__instance->baseSettings = Settings::instance();
+         $baseProperties = self::$__instance->baseSettings->glueProperties(get_class());
+         return self::$__instance;
     }
-
-    /* protected function  setProperty($properties)
-    {
-        if ($properties) {
-            foreach ($properties as $name => $property) {
-                $this->$name = $property;
-            }
-        }
-    } */
     private function __construct() {}
 
     private function __clone() {}

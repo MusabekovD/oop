@@ -25,8 +25,9 @@ class RouteController
 
     private function __construct()
     {
-        $s1 = ShopSettings::get('property');
-        exit();
+        $s1 = Settings::get('templateArr');
+        $s2 = ShopSettings::instance('templateArr');
+
 /* 
         $address_str = $_SERVER["REQUEST_URI"];
 

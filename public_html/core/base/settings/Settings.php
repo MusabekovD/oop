@@ -6,6 +6,7 @@ class Settings
 {
 
     static private $__instance;
+
     private $routes = [
         "admin" => [
             "alias" => "admin",
@@ -59,18 +60,17 @@ class Settings
     public function glueProperties($class)
     {
         $baseProperties = [];
-
-        foreach ($this as $name => $item) {
+        
+     foreach ($this as $name => $item) {
             $property  = $class::get($name);
             $baseProperties[$name] = $property;
-            exit();
-            
-            if (is_array($property) && is_array($item)) {
+         /*   if (is_array($property) && is_array($item)) {
                 $baseProperties[$name] = $this->arrayMergeRecursive($this->$name, $property);
                 continue;
             }
-            if (!$property) $baseProperties[$name] = $this->$name;
-        }
+            if (!$property) $baseProperties[$name] = $this->$name; */
+        } 
+ 
         return $baseProperties;
     }
 
