@@ -30,6 +30,14 @@ class ShopSettings
          $baseProperties = self::$__instance->baseSettings->glueProperties(get_class());
          return self::$__instance;
     }
+    protected function  setProperty($properties)
+    {
+        if ($properties) {
+            foreach ($properties as $name => $property) {
+                $this->$name = $property;
+            }
+        }
+    }
     private function __construct() {}
 
     private function __clone() {}
