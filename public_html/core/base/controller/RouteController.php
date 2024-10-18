@@ -7,7 +7,7 @@ use core\base\settings\Settings;
 use core\base\settings\ShopSettings;
 use Exception;
 
-class RouteController 
+class RouteController
 {
     static private $_instance;
 
@@ -35,20 +35,18 @@ class RouteController
 
         if (strrpos($address_str, "/") === strlen($address_str) - 1 && strrpos($address_str, "/") !== 0) {
             header("Location: " . rtrim($address_str, "/"), true, 301);
-
         }
+
         $path = substr($_SERVER["PHP_SELF"], 0, strpos($_SERVER["PHP_SELF"], 'index.php'));
+
 
         if ($path === PATH) {
 
             $this->routes = Settings::get("routes");
             if (!$this->routes) throw new \Exception("Сайт находиться на техническом обслуживании");
 
-            // $url = explode("/", substr($address_str, strlen(PATH)));
+            $url = explode("/", substr($address_str, strlen(PATH)));
 
-            $trimmed_address = substr($address_str, strlen(PATH)); 
-            $url = explode("/", trim($trimmed_address, "/")); // Use trim to avoid extra slashes
-          
             if ($url[0] && $url[0] === $this->routes["admin"]["alias"]) {
                 // админка
                 if ($url[0] && is_dir($_SERVER["DOCUMENT_ROOT"] . PATH . $this->routes["plugins"]["path"])) {
@@ -99,8 +97,6 @@ class RouteController
                     }
                 }
             }
-
-            exit();
         } else {
             try {
                 throw new \Exception("Не корректная директория сайта");
@@ -110,13 +106,12 @@ class RouteController
         }
     }
 
-   private function createRoute($var, $arr)
+    private function createRoute($var, $arr)
     {
         $route = [];
         if (!empty($arr[0])) {
             if ($this->routes[$var]["routes"][$arr[0]]) {
                 $route = explode("/", $this->routes[$var]["routes"][$arr[0]]);
-
                 $this->controller .= ucfirst($route[0] . "Controller");
             } else {
                 $this->controller .= ucfirst($arr[0] . "Controller");
@@ -128,16 +123,16 @@ class RouteController
         if (!empty($route[1])) {
             $this->InputMethod = $route[1];
         } else {
-            $this->InputMethod = $this->routes["default"]["InputMethod"];
+            $this->InputMethod = $this->routes["default"]["inputMethod"];
         }
-        
+
         // $this->OutputMethod = $route[1] ? $route[1] : $this->routes["default"]["OutputMethod"];
         if (!empty($route[1])) {
             $this->OutputMethod = $route[1];
         } else {
-            $this->OutputMethod = $this->routes["default"]["OutputMethod"];
+            $this->OutputMethod = $this->routes["default"]["outputMethod"];
         }
-        
+
         return;
-    } 
+    }
 }

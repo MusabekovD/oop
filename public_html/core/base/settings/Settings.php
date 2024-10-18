@@ -25,13 +25,13 @@ class Settings
             "path" => "core/user/controllers/",
             "hrUrl" => true,
             "routes" => [
-                "catalog"=>"site"
+                "catalog"=>"site/hello/by"
             ],
         ],
         "default"  => [
             "controller" => "IndexController",
             "inputMethod" => "inputData",
-            "outputData" => "outputData"
+            "outputMethod" => "outputData"
         ]
 
     ];
