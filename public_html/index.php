@@ -12,7 +12,7 @@ require_once "core/base/settings/internal_settings.php";
 require "libraries/functions.php";
 
 try {
-RouteController::getInstance()->route();  //<-  vizov staticheskogo metoda u klassa
+    RouteController::getInstance()->route();  //<-  vizov staticheskogo metoda u klassa
     // RouteController::getInstance();
 } catch (RouteException $e) {
     exit($e->getMessage());

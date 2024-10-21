@@ -22,7 +22,7 @@ class Settings
             "dir" => false
         ],
         "user" => [
-            "path" => "core/user/controllers/",
+            "path" => "core/user/controller/",
             "hrUrl" => true,
             "routes" => [
                 "catalog"=>"site"

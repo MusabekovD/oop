@@ -5,17 +5,15 @@ namespace core\base\controller;
 
 use core\base\settings\Settings;
 use core\base\settings\ShopSettings;
+use core\base\controller\BaseController;
 use Exception;
 
-class RouteController 
+class RouteController extends BaseController
 {
     static private $_instance;
 
     protected $routes;
-    protected $controller;
-    protected $InputMethod;
-    protected $OutputMethod;
-    protected $parameters;
+
 
     private function __clone() {}
 
@@ -30,13 +28,13 @@ class RouteController
     private function __construct()
     {
 
-
         $address_str = $_SERVER["REQUEST_URI"];
 
         if (strrpos($address_str, "/") === strlen($address_str) - 1 && strrpos($address_str, "/") !== 0) {
             header("Location: " . rtrim($address_str, "/"), true, 301);
-
         }
+        $_SERVER["PHP_SELF"];
+
         $path = substr($_SERVER["PHP_SELF"], 0, strpos($_SERVER["PHP_SELF"], 'index.php'));
 
         if ($path === PATH) {
@@ -44,15 +42,12 @@ class RouteController
             $this->routes = Settings::get("routes");
             if (!$this->routes) throw new \Exception("Сайт находиться на техническом обслуживании");
 
-            // $url = explode("/", substr($address_str, strlen(PATH)));
+            $url = explode("/", substr($address_str, strlen(PATH)));
 
-            $trimmed_address = substr($address_str, strlen(PATH)); 
-            $url = explode("/", trim($trimmed_address, "/")); // Use trim to avoid extra slashes
-          
             if ($url[0] && $url[0] === $this->routes["admin"]["alias"]) {
+                array_shift($url);
                 // админка
                 if ($url[0] && is_dir($_SERVER["DOCUMENT_ROOT"] . PATH . $this->routes["plugins"]["path"])) {
-
                     $plugin = array_shift($url);
                     $pluginSettings = $this->routes["settings"]["path"] . ucfirst($plugin . "Settings");
 
@@ -73,13 +68,13 @@ class RouteController
                 }
             } else {
                 $hrUrl = $this->routes["user"]["hrUrl"];
-
                 $this->controller = $this->routes["user"]["path"];
                 $route = "user";
             }
+
             $this->createRoute($route, $url);
 
-            if ($url[1]) {
+          /*   if ($url[1]) {
                 $count = count($url);
                 $key = "";
 
@@ -98,9 +93,7 @@ class RouteController
                         $key = "";
                     }
                 }
-            }
-
-            exit();
+            } */
         } else {
             try {
                 throw new \Exception("Не корректная директория сайта");
@@ -110,7 +103,7 @@ class RouteController
         }
     }
 
-   private function createRoute($var, $arr)
+    private function createRoute($var, $arr)
     {
         $route = [];
         if (!empty($arr[0])) {
@@ -124,20 +117,17 @@ class RouteController
         } else {
             $this->controller .= $this->routes["default"]["controller"];
         }
-        // $this->InputMethod = $route[1] ? $route[1] : $this->routes["default"]["InputMethod"];
         if (!empty($route[1])) {
             $this->InputMethod = $route[1];
         } else {
-            $this->InputMethod = $this->routes["default"]["InputMethod"];
+            $this->InputMethod = $this->routes["default"]["inputMethod"];
         }
-        
-        // $this->OutputMethod = $route[1] ? $route[1] : $this->routes["default"]["OutputMethod"];
         if (!empty($route[1])) {
             $this->OutputMethod = $route[1];
         } else {
-            $this->OutputMethod = $this->routes["default"]["OutputMethod"];
+            $this->OutputMethod = $this->routes["default"]["outputData"];
         }
-        
+
         return;
-    } 
+    }
 }
