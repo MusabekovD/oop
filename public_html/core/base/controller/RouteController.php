@@ -8,7 +8,11 @@ use core\base\settings\ShopSettings;
 use core\base\controller\BaseController;
 use Exception;
 
+<<<<<<< HEAD
 class RouteController extends BaseController
+=======
+class RouteController
+>>>>>>> 8c6decf832a65828e15c62aa573b5b57ade0db19
 {
     static private $_instance;
 
@@ -33,9 +37,13 @@ class RouteController extends BaseController
         if (strrpos($address_str, "/") === strlen($address_str) - 1 && strrpos($address_str, "/") !== 0) {
             header("Location: " . rtrim($address_str, "/"), true, 301);
         }
+<<<<<<< HEAD
         $_SERVER["PHP_SELF"];
+=======
+>>>>>>> 8c6decf832a65828e15c62aa573b5b57ade0db19
 
         $path = substr($_SERVER["PHP_SELF"], 0, strpos($_SERVER["PHP_SELF"], 'index.php'));
+
 
         if ($path === PATH) {
 
@@ -93,7 +101,11 @@ class RouteController extends BaseController
                         $key = "";
                     }
                 }
+<<<<<<< HEAD
             } */
+=======
+            }
+>>>>>>> 8c6decf832a65828e15c62aa573b5b57ade0db19
         } else {
             try {
                 throw new \Exception("Не корректная директория сайта");
@@ -109,7 +121,6 @@ class RouteController extends BaseController
         if (!empty($arr[0])) {
             if ($this->routes[$var]["routes"][$arr[0]]) {
                 $route = explode("/", $this->routes[$var]["routes"][$arr[0]]);
-
                 $this->controller .= ucfirst($route[0] . "Controller");
             } else {
                 $this->controller .= ucfirst($arr[0] . "Controller");
@@ -122,10 +133,19 @@ class RouteController extends BaseController
         } else {
             $this->InputMethod = $this->routes["default"]["inputMethod"];
         }
+<<<<<<< HEAD
         if (!empty($route[1])) {
             $this->OutputMethod = $route[1];
         } else {
             $this->OutputMethod = $this->routes["default"]["outputData"];
+=======
+
+        // $this->OutputMethod = $route[1] ? $route[1] : $this->routes["default"]["OutputMethod"];
+        if (!empty($route[1])) {
+            $this->OutputMethod = $route[1];
+        } else {
+            $this->OutputMethod = $this->routes["default"]["outputMethod"];
+>>>>>>> 8c6decf832a65828e15c62aa573b5b57ade0db19
         }
 
         return;

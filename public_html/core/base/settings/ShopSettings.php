@@ -9,6 +9,15 @@ class ShopSettings
     static private $__instance;
      private $baseSettings;
 
+     private $routes = [
+
+        "plugins" => [
+            "path" => "core/plugins",
+            "hrUrl" => false,
+            "dir" => false
+        ],
+
+    ];
     private $templateArr = [
         "text" => [ "price", "short"],
         "textarea" => ["goods_content"]
