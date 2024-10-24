@@ -2,15 +2,17 @@
 
 namespace core\base\settings;
 
+use core\base\controller\SingleTone;
+
 class Settings
 {
 
-    static private $__instance;
+    use SingleTone;
 
     private $routes = [
         "admin" => [
             "alias" => "admin",
-            "path" => "core/admin/controllers/",
+            "path" => "core/admin/controller/",
             "hrUrl" => false,
         ],
         "settings" => [
@@ -41,9 +43,6 @@ class Settings
         "textarea" => ["content", "keywords"]
     ];
 
-    private function __construct() {}
-
-    private function __clone() {}
 
 
     static public function get($property)
@@ -51,13 +50,6 @@ class Settings
         return self::instance()->$property;
     }
 
-    static public function instance()
-    {
-        if (self::$__instance instanceof self) {
-            return self::$__instance;
-        }
-        return self::$__instance = new self;
-    }
 
     public function glueProperties($class)
     {

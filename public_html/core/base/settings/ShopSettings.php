@@ -2,11 +2,15 @@
 
 namespace core\base\settings;
 
+use core\base\controller\SingleTone;
 use core\base\settings\Settings;
 
 class ShopSettings
+
+
 {
-    static private $__instance;
+
+    use SingleTone;
      private $baseSettings;
 
      private $routes = [
@@ -25,17 +29,16 @@ class ShopSettings
 
     static public function get($property)
     {
-        return self::instance()->$property;
+        return self::getInstance()->$property;
     }
 
-    static public function instance()
+    static private function getInstance()
     {
         if (self::$__instance instanceof self) {
             return self::$__instance;
         }
        
-         self::$__instance = new self;
-         self::$__instance->baseSettings = Settings::instance();
+         self::instance()->baseSettings = Settings::instance();
          $baseProperties = self::$__instance->baseSettings->glueProperties(get_class());
          return self::$__instance;
     }
@@ -47,7 +50,4 @@ class ShopSettings
             }
         }
     }
-    private function __construct() {}
-
-    private function __clone() {}
 }

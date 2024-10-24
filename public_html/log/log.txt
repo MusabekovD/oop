@@ -1,0 +1,24 @@
+Fault;23-10-2024 12:16:12-Не корректная директория сайта
+fileC:\OpenServer\domains\oop\public_html\core\base\controller\RouteController.php
+In Line95
+
+Fault;23-10-2024 16:36:56-Неверное имя для подключения -core/admin/controllers/IndexController
+fileC:\OpenServer\domains\oop\public_html\core\base\settings\internal_settings.php
+In Line32
+
+Fault;23-10-2024 16:38:02-Неверное имя для подключения -core/user/controller/UserController
+fileC:\OpenServer\domains\oop\public_html\core\base\settings\internal_settings.php
+In Line32
+
+Fault;23-10-2024 16:44:55-Неверное имя для подключения -core/admin/controllers/IndexController
+fileC:\OpenServer\domains\oop\public_html\core\base\settings\internal_settings.php
+In Line32
+
+Fault;23-10-2024 16:45:27-Неверное имя для подключения -core/user/controller/UserController
+fileC:\OpenServer\domains\oop\public_html\core\base\settings\internal_settings.php
+In Line32
+
+Fault;23-10-2024 17:48:13-Неверное имя для подключения -core/base/model/BaseModel
+fileC:\OpenServer\domains\oop\public_html\core\base\settings\internal_settings.php
+In Line32
+

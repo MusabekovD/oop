@@ -4,30 +4,15 @@ namespace core\base\controller;
 
 
 use core\base\settings\Settings;
-use core\base\settings\ShopSettings;
 use core\base\controller\BaseController;
-use Exception;
+use core\base\exceptions\RouteException;
 
-<<<<<<< HEAD
 class RouteController extends BaseController
-=======
-class RouteController
->>>>>>> 8c6decf832a65828e15c62aa573b5b57ade0db19
+
 {
-    static private $_instance;
+    use SingleTone;
 
     protected $routes;
-
-
-    private function __clone() {}
-
-    static public function getInstance()
-    {
-        if (self::$_instance instanceof self) {
-            return self::$_instance;
-        }
-        return self::$_instance = new self;
-    }
 
     private function __construct()
     {
@@ -35,12 +20,10 @@ class RouteController
         $address_str = $_SERVER["REQUEST_URI"];
 
         if (strrpos($address_str, "/") === strlen($address_str) - 1 && strrpos($address_str, "/") !== 0) {
-            header("Location: " . rtrim($address_str, "/"), true, 301);
+            $this->redirect(rtrim($address_str, "/"), true, 301);
         }
-<<<<<<< HEAD
+
         $_SERVER["PHP_SELF"];
-=======
->>>>>>> 8c6decf832a65828e15c62aa573b5b57ade0db19
 
         $path = substr($_SERVER["PHP_SELF"], 0, strpos($_SERVER["PHP_SELF"], 'index.php'));
 
@@ -48,7 +31,7 @@ class RouteController
         if ($path === PATH) {
 
             $this->routes = Settings::get("routes");
-            if (!$this->routes) throw new \Exception("Сайт находиться на техническом обслуживании");
+            if (!$this->routes) throw new \Exception("Otsustvuyet marshruti v bazovix nastroykax", 1);
 
             $url = explode("/", substr($address_str, strlen(PATH)));
 
@@ -82,7 +65,7 @@ class RouteController
 
             $this->createRoute($route, $url);
 
-          /*   if ($url[1]) {
+            /*        if ($url[1]) {
                 $count = count($url);
                 $key = "";
 
@@ -101,19 +84,18 @@ class RouteController
                         $key = "";
                     }
                 }
-<<<<<<< HEAD
+            } else {
+                try {
+                    throw new \Exception("Не корректная директория сайта",1);
+                } catch (\Exception $e) {
+                    exit($e->getMessage());
+                }
             } */
-=======
-            }
->>>>>>> 8c6decf832a65828e15c62aa573b5b57ade0db19
         } else {
-            try {
-                throw new \Exception("Не корректная директория сайта");
-            } catch (\Exception $e) {
-                exit($e->getMessage());
-            }
+            throw new RouteException('Не корректная директория сайта', 1); 
         }
     }
+
 
     private function createRoute($var, $arr)
     {
@@ -133,19 +115,10 @@ class RouteController
         } else {
             $this->InputMethod = $this->routes["default"]["inputMethod"];
         }
-<<<<<<< HEAD
-        if (!empty($route[1])) {
-            $this->OutputMethod = $route[1];
-        } else {
-            $this->OutputMethod = $this->routes["default"]["outputData"];
-=======
-
-        // $this->OutputMethod = $route[1] ? $route[1] : $this->routes["default"]["OutputMethod"];
         if (!empty($route[1])) {
             $this->OutputMethod = $route[1];
         } else {
             $this->OutputMethod = $this->routes["default"]["outputMethod"];
->>>>>>> 8c6decf832a65828e15c62aa573b5b57ade0db19
         }
 
         return;

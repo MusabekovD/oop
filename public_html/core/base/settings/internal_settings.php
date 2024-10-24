@@ -1,6 +1,6 @@
 <?php
 
-use core\base\exception\RouteException;
+use core\base\exceptions\RouteException;
 
 defined("VG_ACCESS") or die("ACCESS DENIED");
 

@@ -1,7 +1,12 @@
 php_flag magic_quotes_gpc OFF
 AddDefaultCharset utf-8
 DirectoryIndex index.php
-RewriteEngine on
+RewriteEngine On
 
+# Fayl va faviconni istisno qilish
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^{.*} index.php
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !favicon.ico
+
+# Barcha URL manzillarni index.php ga yo'naltirish
+RewriteRule ^(.*)$ index.php [L,QSA]
