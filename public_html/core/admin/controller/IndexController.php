@@ -11,18 +11,18 @@ class IndexController extends BaseController
     {
         $db = Model::instance();
 
-        $table = 'arcticles';
+        $table = 'teachers';
+        $color = ['red', 'blue', 'black'];
 
         $res = $db->get($table, [
             'fields' => ['id', 'name'],
             'where' => ['name' => 'masha', 'dasha'],
-            'operand' => ['IN', 'LIKE'],
+            'operand' => ['IN', 'LIKE', '<>', '='],
             'condition' => ['AND'],
             'order' => ['name'],
             'order_direction' => ['DESC'],
             'limit' => '1',
         ]);
-
         exit("I'm admin panel");
     }
 }
