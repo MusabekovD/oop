@@ -13,11 +13,10 @@ class IndexController extends BaseController
 
         $table = 'articles';
 
-        $res = $db->get($table, [
-            'fields' => ['id', 'name'],
-            'where' => ['name' => 'masha'],
-            'limit' => '1',
-        ])[0];
+        $res = $db->delete($table, [
+            'where' => ['id' => 10]
+            //where method is not working
+        ]);
 
         exit('id =' . $res['id'] . ' Name = ' . $res['name']);
     }
