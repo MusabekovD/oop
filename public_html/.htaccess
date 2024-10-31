@@ -10,3 +10,5 @@ RewriteCond %{REQUEST_FILENAME} !favicon.ico
 
 # Barcha URL manzillarni index.php ga yo'naltirish
 RewriteRule ^(.*)$ index.php [L,QSA]
+
+

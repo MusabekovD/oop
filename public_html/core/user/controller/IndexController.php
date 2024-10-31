@@ -9,7 +9,7 @@ class IndexController extends BaseController
     protected $name;
     protected function inputData()
     {
+        $template =  $this->render();
         $this->init();
-        exit();
     }
 }

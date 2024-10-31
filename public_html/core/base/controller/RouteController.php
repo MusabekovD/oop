@@ -30,6 +30,10 @@ class RouteController extends BaseController
 
         if ($path === PATH) {
 
+        /*     if (strrpos($address_str, "/") === strlen($address_str) - 1 && strrpos($address_str, PATH) -1) {
+                $this->redirect(rtrim($address_str, "/"), true, 301);
+            } */
+
             $this->routes = Settings::get("routes");
             if (!$this->routes) throw new \Exception("Otsustvuyet marshruti v bazovix nastroykax", 1);
 

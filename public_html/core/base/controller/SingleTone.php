@@ -17,6 +17,12 @@ trait SingleTone
         if (self::$__instance instanceof self) {
             return self::$__instance;
         }
-        return self::$__instance = new self;
+        self::$__instance = new self;
+
+        if (method_exists(self::$__instance, 'connect')) {
+            self::$__instance->connect();
+        }
+
+        return self::$__instance;
     }
 }

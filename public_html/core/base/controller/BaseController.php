@@ -10,6 +10,10 @@ abstract class BaseController
 {
     use \core\base\controller\BaseMethods;
 
+    protected $header;
+    protected $content;
+    protected $footer;
+
     protected $page;
     protected $errors;
     protected $controller;
@@ -17,8 +21,11 @@ abstract class BaseController
     protected $OutputMethod;
     protected $parameters;
 
+
+    protected $template;
     protected $styles;
     protected $scripts;
+
 
     public function route()
     {
@@ -49,20 +56,21 @@ abstract class BaseController
 
         if (method_exists($this, $outputData)) {
             $page = $this->$outputData($data);
-            if($page) $this->page = $page;
+            if ($page) $this->page = $page;
         } elseif ($data) {
             $this->page = $data;
         }
 
 
-         if ($this->errors) {
+        if ($this->errors) {
             $this->writeLog($this->errors);
-        } 
-        
+        }
+
         $this->getPage();
     }
     protected function render($path = "", $parameters = [])
     {
+   
         extract($parameters);
         if (!$path) {
 
@@ -71,23 +79,28 @@ abstract class BaseController
             $space = str_replace('\\', '/', $class->getNamespaceName() . '\\');
             $routes = Settings::get('routes');
 
-            if($space === $routes["user"]["path"]) $template = TEMPLATE;
+            if ($space === $routes["user"]["path"]) $template = TEMPLATE;
             else $template = ADMIN_TEMPLATE;
 
             $path = $template . explode("controller", strtolower($class->getShortName()))[0];
         }
+        $fixedPath = $path . '.php';
+        if (!include $fixedPath) throw new RouteException("Отсуствует шаблон - " . $path);
+
+        // if (!include $_SERVER['DOCUMENT_ROOT'] . '/' . $path . '.php') throw new RouteException("Отсуствует шаблон - " . $path);
+  
         ob_start();
         if (!@include_once $path . '.php') throw new RouteException("Отсуствует шаблон - " . $path);
         return ob_get_clean();
     }
     protected function getPage()
     {
-        if (is_array($this->page)) {
+          if (is_array($this->page)) {
             foreach ($this->page as $block) echo $block;
         } else {
             echo $this->page;
-        }
-        exit();
+        } 
+        exit($this->page);
     }
     protected function init($admin = false)
     {
@@ -100,12 +113,11 @@ abstract class BaseController
             }
         } else {
             if (ADMIN_CSS_JS['styles']) {
-                foreach (USER_CSS_JS['styles'] as $item) $this->styles[] = PATH . ADMIN_TEMPLATE . trim($item, '/');
+                foreach (ADMIN_CSS_JS['styles'] as $item) $this->styles[] = PATH . ADMIN_TEMPLATE . trim($item, '/');
             }
             if (ADMIN_CSS_JS['scripts']) {
-                foreach (USER_CSS_JS['scripts'] as $item) $this->styles[] = PATH . ADMIN_TEMPLATE . trim($item, '/');
+                foreach (ADMIN_CSS_JS['scripts'] as $item) $this->styles[] = PATH . ADMIN_TEMPLATE . trim($item, '/');
             }
         }
     }
-
 }

@@ -27,7 +27,7 @@ class Settings
             "path" => "core/user/controller/",
             "hrUrl" => true,
             "routes" => [
-                "catalog"=>"site/hello/by"
+                "catalog" => "site/hello/by"
             ],
         ],
         "default"  => [
@@ -37,12 +37,14 @@ class Settings
         ]
 
     ];
+    private $defaultTable = 'articles';
 
+    private $expansion = 'core/admin/expansion/';
+    
     private $templateArr = [
         "text" => ["name", "phone", "address"],
         "textarea" => ["content", "keywords"]
     ];
-
 
 
     static public function get($property)

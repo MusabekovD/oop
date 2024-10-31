@@ -22,3 +22,43 @@ Fault;23-10-2024 17:48:13-Неверное имя для подключения 
 fileC:\OpenServer\domains\oop\public_html\core\base\settings\internal_settings.php
 In Line32
 
+Fault;31-10-2024 16:15:49-Отсуствует шаблон - core/admin/views/show
+fileC:\OpenServer\domains\oop\public_html\core\base\controller\BaseController.php
+In Line87
+
+Fault;31-10-2024 16:16:56-Отсуствует шаблон - core/admin/views/show
+fileC:\OpenServer\domains\oop\public_html\core\base\controller\BaseController.php
+In Line87
+
+Fault;31-10-2024 17:44:37-Неверное имя для подключения -core/user/controller/AdmiController
+fileC:\OpenServer\domains\oop\public_html\core\base\settings\internal_settings.php
+In Line32
+
+Fault;31-10-2024 18:07:10-Неверное имя для подключения -core/user/controller/TemplatesController
+fileC:\OpenServer\domains\oop\public_html\core\base\settings\internal_settings.php
+In Line32
+
+Fault;31-10-2024 18:26:23-Отсуствует шаблон - 1
+fileC:\OpenServer\domains\oop\public_html\core\base\controller\BaseController.php
+In Line86
+
+Fault;31-10-2024 18:27:16-Отсуствует шаблон - templates/default/index.php
+fileC:\OpenServer\domains\oop\public_html\core\base\controller\BaseController.php
+In Line86
+
+Fault;31-10-2024 18:35:44-Отсуствует шаблон - templates/default/index
+fileC:\OpenServer\domains\oop\public_html\core\base\controller\BaseController.php
+In Line88
+
+Fault;31-10-2024 18:36:41-Отсуствует шаблон - templates/default/index
+fileC:\OpenServer\domains\oop\public_html\core\base\controller\BaseController.php
+In Line88
+
+Fault;31-10-2024 18:50:34-Отсуствует шаблон - templates/default/index
+fileC:\OpenServer\domains\oop\public_html\core\base\controller\BaseController.php
+In Line88
+
+Fault;31-10-2024 18:50:44-Отсуствует шаблон - templates/default/index
+fileC:\OpenServer\domains\oop\public_html\core\base\controller\BaseController.php
+In Line88
+

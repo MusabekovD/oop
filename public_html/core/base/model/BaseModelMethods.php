@@ -55,10 +55,10 @@ abstract class BaseModelMethods
     protected function createWhere($set, $table = false, $instruction = 'WHERE')
     {
 
-        $table = $table ? $table . '.' : '';
+        $table = $table ? $table .'.' : '';
 
         $where = '';
-        if (is_array($set['order']) && !empty($set['order'])) {
+        if (is_array($set['where']) && !empty($set['where'])) {
 
             $set['operand'] = (is_array($set['operand']) && !empty($set['operand'])) ? $set['operand'] : ['='];
             $set['condition'] = (is_array($set['condition']) && !empty($set['condition'])) ? $set['condition'] : ['AND'];
@@ -250,7 +250,7 @@ abstract class BaseModelMethods
                 if (in_array($value, $this->sql_func)) {
                     $update .= $value . ',';
                 } elseif ($value === NULL) {
-                    $update .= "NULL" . ',';
+                    $update .= "NULL" . ','; // changed here NULL to $value
                 } else {
                     $update .= "'" . addslashes($value) . "',";
                 }
